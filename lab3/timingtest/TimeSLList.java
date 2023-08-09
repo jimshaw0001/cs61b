@@ -28,7 +28,7 @@ public class TimeSLList {
         AList<Integer> opCounts = new AList<>();
 
         final int START_VAL = 1_000;
-        final int MAX_VAL = 128_000; //10_000_000;
+        final int MAX_VAL = 64_000; //10_000_000;
         final int OPS = 1_000;
 
         int i = START_VAL;
