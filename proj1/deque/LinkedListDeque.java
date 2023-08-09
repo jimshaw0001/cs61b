@@ -64,7 +64,12 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index){
-        return dummy;
+        Node<T> temp = first.next;
+        while (index > 0) {
+            temp = temp.next;
+            index -= 1;
+        }
+        return temp.item;
     }
 
 //    public Iterator<T> iterator(){}

@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
         }
 
         public T get(int index){
-            return dummy;
+            return (T) arr[start + index];
         }
 
 //    public Iterator<T> iterator(){}
