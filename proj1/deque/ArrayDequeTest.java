@@ -1,6 +1,9 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -41,7 +44,7 @@ public class ArrayDequeTest {
 
 //        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
-            LinkedListDeque<Integer> ad1 = new LinkedListDeque<Integer>();
+            ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
             // should be empty
             assertTrue("lld1 should be empty upon initialization", ad1.isEmpty());
 
@@ -79,7 +82,7 @@ public class ArrayDequeTest {
         }
 
         @Test
-        /* Check if you can create LinkedListDeques with different parameterized types*/
+        /* Check if you can create ArrayDeque with different parameterized types*/
         public void multipleParamTest() {
 
             ArrayDeque<String>  ad1 = new ArrayDeque<String>();
@@ -97,7 +100,7 @@ public class ArrayDequeTest {
         }
 
         @Test
-        /* check if null is return when removing from an empty LinkedListDeque. */
+        /* check if null is return when removing from an empty ArrayDeque. */
         public void emptyNullReturnTest() {
 
 //        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
@@ -131,4 +134,54 @@ public class ArrayDequeTest {
             }
 
         }
+
+
+    @Test
+    public void iterableTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(1);
+        ad1.addLast(2);
+        ad1.addFirst(3);
+        Iterator<Integer> itr = ad1.iterator();
+        if (itr.hasNext()) assertEquals(itr.next(), Integer.valueOf(3));
+        if (itr.hasNext()) assertEquals(itr.next(), Integer.valueOf(1));
+        if (itr.hasNext()) assertEquals(itr.next(), Integer.valueOf(2));
+        assertEquals(itr.hasNext(), false);
+
+        ArrayDeque<Integer> ad2 = new ArrayDeque<>();
+        for (int i = 0; i < 1000000; i++) {
+            ad2.addLast(i);
+        }
+        int j = 0;
+        for (Integer i : ad2) {
+            assertEquals(i, Integer.valueOf(j));
+            j++;
+        }
     }
+
+    @Test
+    public void equalsTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(1);
+        ad1.addLast(2);
+        ad1.addFirst(3);
+        ArrayDeque<Integer> ad2 = null;
+        ArrayDeque<Integer> ad3 = ad1;
+        ArrayDeque<Integer> ad4 = new ArrayDeque<>();
+        ad4.addLast(1);
+        ad4.addLast(2);
+        ArrayDeque<Integer> ad5 = new ArrayDeque<>();
+        ad5.addLast(1);
+        ad5.addLast(2);
+        ad5.addFirst(3);
+        ArrayDeque<Integer> ad6 = new ArrayDeque<>();
+        ad6.addLast(1);
+        ad6.addLast(2);
+        ad6.addFirst(4);
+        assertEquals(false, ad1.equals(ad2));
+        assertEquals(true, ad1.equals(ad3));
+        assertEquals(false, ad1.equals(ad4));
+        assertEquals(true, ad1.equals(ad5));
+        assertEquals(false, ad1.equals(ad6));
+    }
+}
