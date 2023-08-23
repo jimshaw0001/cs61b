@@ -96,10 +96,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return (T) arr[start + index];
     }
 
-    public T getRecursive(int index) {
-        return (T) arr[start + index];
-    }
-
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
