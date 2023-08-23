@@ -7,6 +7,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int start;
     private int end;
     private int size;
+    private int capacity;
     private Object[] arr;
 
     public ArrayDeque() {
@@ -14,10 +15,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         this.start = START_CAPACITY / 3; // first item
         this.end = START_CAPACITY / 3; // next item
         this.size = 0;
+        this.capacity = START_CAPACITY;
     }
 
     private void resize() {
-        int capacity = Math.max(size() * 3, START_CAPACITY);
+        capacity = Math.max(size() * 3, START_CAPACITY);
         Object[] newArr = new Object[capacity];
         int newStart = capacity / 3;
         int newEnd = newStart + size();
@@ -61,7 +63,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeFirst() {
-        if (size() > START_CAPACITY && size() < arr.length / 6) {
+        if (size() < capacity / 4) {
             resize();
         }
         if (isEmpty()) {
@@ -76,7 +78,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (size() > START_CAPACITY && size() < arr.length / 6) {
+        if (size() < capacity / 4) {
             resize();
         }
         if (isEmpty()) {
@@ -107,6 +109,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return true;
         }
         if (o == null) {
+            return false;
+        }
+        if (!(o instanceof Deque)) {
             return false;
         }
         Deque<T> obj = (Deque<T>) o;
