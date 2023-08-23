@@ -38,14 +38,20 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public int size() {return size;}
+    public int size() {
+        return size;
+    }
 
     @Override
-    public void printDeque() {System.out.println("deque");}
+    public void printDeque() {
+        System.out.println("deque");
+    }
 
     @Override
     public T removeFirst() {
-        if (isEmpty()) {return null;}
+        if (isEmpty()) {
+            return null;
+        }
         Node<T> temp = first.next;
         first.next = temp.next;
         first.next.previous = first;
@@ -55,7 +61,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (isEmpty()) {return null;}
+        if (isEmpty()) {
+            return null;
+        }
         Node<T> temp = last.previous;
         last.previous = temp.previous;
         last.previous.next = last;
@@ -73,12 +81,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return temp.item;
     }
 
-    private T getRecursive(int index) {
+    public T getRecursive(int index) {
         return getRecursiveHelper(index, first.next);
     }
 
     private T getRecursiveHelper(int index, Node<T> node) {
-        if (index == 0) {return node.item;}
+        if (index == 0) {
+            return node.item;
+        }
         return getRecursiveHelper(index - 1, node.next);
     }
 
@@ -87,13 +97,20 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null) {return false;}
-        if (o.getClass() != this.getClass()) {return false;}
-        LinkedListDeque<T> obj = (LinkedListDeque<T>) o;
-        if (size() != obj.size()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        Deque<T> obj = (Deque<T>) o;
+        if (size() != obj.size()) {
+            return false;
+        }
         for (int i = 0; i < size(); i++) {
-            if (!get(i).equals(obj.get(i))) {return false;}
+            if (!get(i).equals(obj.get(i))) {
+                return false;
+            }
         }
         return true;
     }

@@ -184,4 +184,15 @@ public class ArrayDequeTest {
         assertEquals(true, ad1.equals(ad5));
         assertEquals(false, ad1.equals(ad6));
     }
+
+    @Test
+    public void testRandom() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addFirst(0);
+        ad1.removeLast();
+        ad1.isEmpty();
+        ad1.addFirst(3);
+        ad1.removeLast();
+        ad1.addFirst(5);
+    }
 }

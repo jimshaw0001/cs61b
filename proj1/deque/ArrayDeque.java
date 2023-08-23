@@ -16,7 +16,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         this.size = 0;
     }
 
-    private void resize(int capacity) {
+    private void resize() {
+        int capacity = Math.max(size() * 3, START_CAPACITY);
         Object[] newArr = new Object[capacity];
         int newStart = capacity / 3;
         int newEnd = newStart + size();
@@ -30,7 +31,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addFirst(T item) {
-        if (start == 0) {resize(size() * 3);}
+        if (start < 1) {
+            resize();
+        }
         start -= 1;
         arr[start] = item;
         size += 1;
@@ -38,7 +41,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addLast(T item) {
-        if (end == arr.length) {resize(size() * 3);}
+        if (end == arr.length) {
+            resize();
+        }
         arr[end] = item;
         end += 1;
         size += 1;
@@ -56,8 +61,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeFirst() {
-        if (size() > START_CAPACITY && size() < arr.length / 6) {resize(size() * 3);}
-        if (isEmpty()) {return null;}
+        if (size() > START_CAPACITY && size() < arr.length / 6) {
+            resize();
+        }
+        if (isEmpty()) {
+            return null;
+        }
         T temp = (T) arr[start];
         arr[start] = null;
         start += 1;
@@ -67,8 +76,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (size() > START_CAPACITY && size() < arr.length / 6) {resize(size() * 3);}
-        if (isEmpty()) {return null;}
+        if (size() > START_CAPACITY && size() < arr.length / 6) {
+            resize();
+        }
+        if (isEmpty()) {
+            return null;
+        }
         end -= 1;
         T temp = (T) arr[end];
         arr[end] = null;
@@ -81,7 +94,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return (T) arr[start + index];
     }
 
-    private T getRecursive(int index) {
+    public T getRecursive(int index) {
         return (T) arr[start + index];
     }
 
@@ -90,13 +103,20 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null) {return false;}
-        if (o.getClass() != this.getClass()) {return false;}
-        ArrayDeque<T> obj = (ArrayDeque<T>) o;
-        if (size() != obj.size()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        Deque<T> obj = (Deque<T>) o;
+        if (size() != obj.size()) {
+            return false;
+        }
         for (int i = 0; i < size(); i++) {
-            if (!get(i).equals(obj.get(i))) {return false;}
+            if (!get(i).equals(obj.get(i))) {
+                return false;
+            }
         }
         return true;
     }
