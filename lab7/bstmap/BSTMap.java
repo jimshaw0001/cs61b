@@ -96,7 +96,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K,V>{
 
 
     @Override
-    public Set keySet() {
+    public Set<K> keySet() {
         throw new UnsupportedOperationException();
     }
 
@@ -111,7 +111,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K,V>{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<K> iterator() {
         throw new UnsupportedOperationException();
     }
 
