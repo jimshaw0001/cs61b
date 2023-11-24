@@ -5,7 +5,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
-public class BSTMap<K extends Comparable, V extends Comparable> implements Map61B{
+public class BSTMap<K extends Comparable<K>, V> implements Map61B<K,V>{
 
     private BSTNode root;
     private int size;
@@ -17,7 +17,7 @@ public class BSTMap<K extends Comparable, V extends Comparable> implements Map61
     }
 
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(K key) {
         BSTNode current = root;
         while (current != null) {
             if (current.k.compareTo(key) == 0) {
@@ -32,9 +32,9 @@ public class BSTMap<K extends Comparable, V extends Comparable> implements Map61
     }
 
     @Override
-    public Object get(Object key) {
+    public V get(K key) {
         // if (key == null) return null;
-        BSTNode current = root;
+        BSTNode<K, V> current = root;
         while (current != null) {
             if (current.k.compareTo(key) == 0) {
                 return current.v;
@@ -53,10 +53,10 @@ public class BSTMap<K extends Comparable, V extends Comparable> implements Map61
     }
 
     @Override
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         BSTNode<K, V> newNode = new BSTNode<>();
-        newNode.k = (K) key;
-        newNode.v = (V) value;
+        newNode.k = key;
+        newNode.v = value;
         size++;
         if (root == null) {
             root = newNode;
@@ -101,12 +101,12 @@ public class BSTMap<K extends Comparable, V extends Comparable> implements Map61
     }
 
     @Override
-    public Object remove(Object key) {
+    public V remove(K key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Object remove(Object key, Object value) {
+    public V remove(K key, V value) {
         throw new UnsupportedOperationException();
     }
 
@@ -115,20 +115,10 @@ public class BSTMap<K extends Comparable, V extends Comparable> implements Map61
         throw new UnsupportedOperationException();
     }
 
-    private class BSTNode<K extends Comparable, V extends Comparable> {
+    private class BSTNode<K extends Comparable<K>, V> {
         K k;
         V v;
         BSTNode left;
         BSTNode right;
-    }
-
-    public static void main(String[] args){
-        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
-        for (int i = 0; i < 10; i++) {
-            b.put("hi" + i, 1+i);
-        }
-        b.printInOrder();
-        System.out.println("contains hi5: " + b.containsKey("hi5"));
-        System.out.println("hi3: " + b.get("hi3"));
     }
 }
